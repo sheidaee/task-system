@@ -1,0 +1,37 @@
+﻿CREATE DEFINER=`root`@`localhost` FUNCTION `checkParentIsComplete`(`givenID` INT) RETURNS tinyint(1)
+    DETERMINISTIC
+BEGIN
+    DECLARE childrenCount INT;
+    DECLARE childrenCompleteCount INT;
+
+    SELECT COUNT(*) INTO childrenCount
+    FROM
+      (SELECT *
+       FROM tasks
+       ORDER BY parent_id,
+                id) tasks_sorted,
+      (SELECT @pv := givenId) initialisation
+    WHERE find_in_set(parent_id, @pv) > 0
+      and @pv := concat(@pv, ',', id);
+
+    SELECT count(*) status INTO childrenCompleteCount
+    FROM
+    (
+        SELECT status
+        FROM
+          (SELECT *
+           FROM tasks
+           ORDER BY parent_id,
+                    id) tasks_sorted,
+          (SELECT @pv := givenId) initialisation
+        WHERE find_in_set(parent_id, @pv) > 0
+          and @pv := concat(@pv, ',', id)
+    ) temp
+    WHERE temp.status = 2;
+
+    IF childrenCount = childrenCompleteCount THEN
+        RETURN 1;
+    ELSE
+        RETURN 0;
+    END IF;
+END

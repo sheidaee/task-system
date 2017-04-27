@@ -1,0 +1,91 @@
+a:hover {
+    text-decoration: none;
+}
+
+.header {
+    border-top: 0.300em solid #ff8300;
+}
+
+textarea:focus, input:focus, .uneditable-input:focus {
+    border: 0.0625em solid #dfdfdf !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.grayBlock li {
+    border-bottom: 0.0625em dashed #c4c4c3;
+    line-height: 2.8em;
+}
+
+.caption {
+    font-weight: normal;
+    color: #013A81;
+    padding: 0.30em;
+}
+
+.data {
+    text-align: justify;
+    color: #000000;
+    padding: 0.30em;
+}
+
+.contentImage, .contentImageContainer img {
+    border: 0.0625em solid #cccccc;
+    padding: 0.0625em;
+    position: relative;
+}
+
+#bs-nav > ul > li > a {
+    padding: 0 0.900em;
+    margin: 0.900em 0;
+    border-right: 0.0625em solid #B68445;
+    transition: all 0.1s ease 0s;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+}
+
+#bs-nav > ul > li:last-child a {
+    border-right: 0;
+}
+
+.filterTasks li a {
+    padding: 0.2em 0.6em 0.3em;
+}
+
+.labelWarning {
+    display: inline;
+    padding: 0.2em 0.6em 0.3em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25em;
+    background-color: #ff8300;
+}
+
+.filterTasks ul {
+    margin-bottom: 0;
+    line-height: 2.15em;
+}
+
+.error {
+    color: red;
+    font-size: 1.4em;
+    vertical-align: middle;;
+    padding-left: 4px;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #ff8300;
+    transition: all 0.1s ease 0s;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+}

@@ -1,0 +1,28 @@
+﻿CREATE DEFINER=`root`@`localhost` FUNCTION `hasCircularDependency`(`givenId` INT, `givenParentId` INT) RETURNS varchar(1024) CHARSET utf8
+    DETERMINISTIC
+BEGIN
+    DECLARE path VARCHAR(1024);
+    DECLARE delimiter CHAR(1);
+    DECLARE currentId INT;
+	DECLARE oldParentId INT;
+    
+    SELECT parent_id INTO oldParentId FROM tasks WHERE id = givenId;
+    UPDATE tasks SET parent_id = givenParentId WHERE id = givenId;
+    
+    SET path = '|';
+    SET delimiter = '|';
+    SET currentId = givenId;        
+    
+    WHILE currentId > 0 DO
+        SELECT IFNULL(parent_id,-1) INTO currentId FROM
+        (SELECT parent_id FROM tasks WHERE id = currentId) A;
+        IF LOCATE(CONCAT(delimiter, givenId, delimiter), path) THEN     
+        	UPDATE tasks SET parent_id = oldParentId WHERE id = givenId;
+        	RETURN 'yes';
+        END IF;
+        IF currentId > 0 THEN
+            SET path = CONCAT(path, currentId, delimiter);
+        END IF;
+    END WHILE;
+    RETURN path;
+END

@@ -1,0 +1,9 @@
+﻿CREATE DEFINER=`root`@`localhost` FUNCTION `GetParentIDByID`(GivenID INT) RETURNS int(11)
+    DETERMINISTIC
+BEGIN
+    DECLARE rv INT;
+
+    SELECT IFNULL(parent_id,-1) INTO rv FROM
+    (SELECT parent_id FROM tasks WHERE id = GivenID) A;
+    RETURN rv;
+END
